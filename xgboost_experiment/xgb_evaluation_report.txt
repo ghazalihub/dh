@@ -1,0 +1,21 @@
+XGBoost Accuracy: 0.8065
+
+Classification Report:
+                   precision    recall  f1-score   support
+
+           Hernia       0.58      0.58      0.58        12
+           Normal       0.74      0.70      0.72        20
+Spondylolisthesis       0.94      0.97      0.95        30
+
+         accuracy                           0.81        62
+        macro avg       0.75      0.75      0.75        62
+     weighted avg       0.80      0.81      0.80        62
+
+Confusion Matrix:
+                   Hernia  Normal  Spondylolisthesis
+Hernia                  7       4                  1
+Normal                  5      14                  1
+Spondylolisthesis       0       1                 29
+
+Best Parameters:
+{'colsample_bytree': 1.0, 'learning_rate': 0.05, 'max_depth': 5, 'n_estimators': 200, 'subsample': 1.0}
