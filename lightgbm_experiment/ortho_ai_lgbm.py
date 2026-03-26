@@ -3,14 +3,14 @@ import pandas as pd
 import sys
 import os
 
-def predict_ortho(data_dict):
+def predict_ortho_lgbm(data_dict):
     """
     data_dict: dict containing the 6 biomechanical features
     """
     # Use absolute path for loading model files relative to this script's directory
     base_dir = os.path.dirname(os.path.abspath(__file__))
-    processed_data_path = os.path.join(base_dir, 'processed_data.pkl')
-    best_model_path = os.path.join(base_dir, 'best_model.pkl')
+    processed_data_path = os.path.join(base_dir, 'processed_data_lgbm.pkl')
+    best_model_path = os.path.join(base_dir, 'best_lgbm_model.pkl')
 
     try:
         data_processed = joblib.load(processed_data_path)
@@ -18,10 +18,9 @@ def predict_ortho(data_dict):
         scaler = data_processed['scaler']
         le = data_processed['label_encoder']
     except FileNotFoundError:
-        print(f"Model files not found. Please ensure 'best_model.pkl' and 'processed_data.pkl' are in {base_dir}")
+        print(f"LightGBM model files not found. Please ensure 'best_lgbm_model.pkl' and 'processed_data_lgbm.pkl' are in {base_dir}")
         return None
 
-    # Define feature order
     features_order = [
         'pelvic_incidence',
         'pelvic_tilt',
@@ -31,13 +30,9 @@ def predict_ortho(data_dict):
         'degree_spondylolisthesis'
     ]
 
-    # Prepare input as DataFrame for scaler
     input_data = pd.DataFrame([data_dict])[features_order]
+    input_scaled = pd.DataFrame(scaler.transform(input_data), columns=features_order)
 
-    # Scale features
-    input_scaled = scaler.transform(input_data)
-
-    # Predict
     prediction_encoded = model.predict(input_scaled)
     prediction_label = le.inverse_transform(prediction_encoded)
 
@@ -55,13 +50,12 @@ def main():
                 'pelvic_radius': features[4],
                 'degree_spondylolisthesis': features[5]
             }
-            result = predict_ortho(data)
-            print(f"Prediction: {result}")
+            result = predict_ortho_lgbm(data)
+            print(f"Prediction (LightGBM): {result}")
         except ValueError:
             print("Invalid input: Please provide 6 numeric biomechanical features.")
     else:
-        print("Usage: python ortho_ai.py <pelvic_incidence> <pelvic_tilt> <lumbar_lordosis_angle> <sacral_slope> <pelvic_radius> <degree_spondylolisthesis>")
-        print("Example: python ortho_ai.py 63.02 22.55 39.60 40.47 98.67 -0.25")
+        print("Usage: python lightgbm_experiment/ortho_ai_lgbm.py <pelvic_incidence> <pelvic_tilt> <lumbar_lordosis_angle> <sacral_slope> <pelvic_radius> <degree_spondylolisthesis>")
 
 if __name__ == "__main__":
     main()

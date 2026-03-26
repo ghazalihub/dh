@@ -1,0 +1,15 @@
+LightGBM Accuracy: 0.8226
+
+Classification Report:
+                   precision    recall  f1-score   support
+
+           Hernia       0.57      0.67      0.62        12
+           Normal       0.74      0.70      0.72        20
+Spondylolisthesis       1.00      0.97      0.98        30
+
+         accuracy                           0.82        62
+        macro avg       0.77      0.78      0.77        62
+     weighted avg       0.83      0.82      0.83        62
+
+Best Config:
+{'boosting_type': 'gbdt', 'class_weight': None, 'colsample_bytree': 1.0, 'importance_type': 'split', 'learning_rate': 0.05, 'max_depth': -1, 'min_child_samples': 5, 'min_child_weight': 0.001, 'min_split_gain': 0.0, 'n_estimators': 50, 'n_jobs': None, 'num_leaves': 15, 'objective': None, 'random_state': 42, 'reg_alpha': 0.0, 'reg_lambda': 0.0, 'subsample': 1.0, 'subsample_for_bin': 200000, 'subsample_freq': 0, 'verbose': -1}
