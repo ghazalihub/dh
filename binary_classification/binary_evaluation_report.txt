@@ -1,0 +1,20 @@
+Binary Classification (Normal vs Abnormal) - Random Forest
+Accuracy: 0.8226
+
+Classification Report:
+              precision    recall  f1-score   support
+
+    Abnormal       0.88      0.86      0.87        42
+      Normal       0.71      0.75      0.73        20
+
+    accuracy                           0.82        62
+   macro avg       0.80      0.80      0.80        62
+weighted avg       0.83      0.82      0.82        62
+
+Confusion Matrix:
+          Abnormal  Normal
+Abnormal        36       6
+Normal           5      15
+
+Best Parameters:
+{'class_weight': 'balanced', 'criterion': 'entropy', 'max_depth': None, 'min_samples_split': 2, 'n_estimators': 100}
